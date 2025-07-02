@@ -59,15 +59,15 @@ Bu proje, .NET microservices ve React frontend mimarisi kullanarak geliştirilmi
 
 ---
 
+## 📊 **ER Diagram**
+
+![ER Diagram](https://github.com/gulcedogruoz/se4458-frontend/blob/main/ER.jpeg)
+
+---
+
 ## 📝 **Kurulum Adımları**
 
 ### 🔧 **1. Repository klonla**
 ```bash
 git clone <repo-url>
 cd HotelBookingSystem
-
----
-
-![ER Diagram](https://github.com/gulcedogruoz/se4458-frontend/blob/main/ER.jpeg)
-
-
