@@ -1,28 +1,38 @@
 # ===========================
-# HotelBookingSystem Dockerfile
+# HotelBookingSystem Frontend Dockerfile
 # ===========================
 
 # 1. Build Stage
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM node:18-alpine AS build
 WORKDIR /app
 
-# Copy csproj and restore as distinct layers
-COPY *.sln .
-COPY HotelBookingSystem/*.csproj ./HotelBookingSystem/
-RUN dotnet restore
+# Copy package.json and package-lock.json (if exists)
+COPY package*.json ./
 
-# Copy everything else and build
-COPY HotelBookingSystem/. ./HotelBookingSystem/
-WORKDIR /app/HotelBookingSystem
-RUN dotnet publish -c Release -o out
+# Install dependencies
+RUN npm install
 
-# 2. Runtime Stage
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
-COPY --from=build /app/HotelBookingSystem/out ./
+# Copy the rest of the application source code
+COPY . .
 
-# Expose port (change if different in Program.cs)
-EXPOSE 5177
+# Build the React app for production
+RUN npm run build
 
-# Run the application
-ENTRYPOINT ["dotnet", "HotelBookingSystem.dll"]
+# 2. Production Stage – serve with nginx
+FROM nginx:stable-alpine
+WORKDIR /usr/share/nginx/html
+
+# Remove default nginx static assets
+RUN rm -rf ./*
+
+# Copy built react app from previous stage
+COPY --from=build /app/build ./
+
+# Copy custom nginx config (optional)
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx server
+CMD ["nginx", "-g", "daemon off;"]
