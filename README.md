@@ -61,9 +61,13 @@ Bu proje, .NET microservices ve React frontend mimarisi kullanarak geliştirilmi
 
 ## 📊 **ER Diagram**
 
-![ER Diagram](https://github.com/gulcedogruoz/se4458-frontend/blob/main/ER.jpeg)
+![ER Diagram](https://github.com/gulcedogruoz/se4458-gateway/blob/main/ER.jpeg)
 
 ---
+
+## YouTube Link
+https://youtu.be/ywJ6T5LMpBc
+
 
 ## 📝 **Kurulum Adımları**
 
